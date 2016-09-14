@@ -30,13 +30,14 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   }
 
   app.get('/urls/new', (req, res) => {
-    res.render('urls_new');
+    let templateVars = { title: 'Create New tinyURL' };
+    res.render('urls_new', templateVars);
   });
 
   app.post('/urls', (req, res) => {
     let longURL = req.body.longURL;
     tinyapp.insertURL(db, longURL, (err, result) => {
-      let templateVars = { title: 'Your tinyURLs'};
+      let templateVars = { title: 'Your tinyURLs' };
       res.redirect('/urls', templateVars);
     });
   });

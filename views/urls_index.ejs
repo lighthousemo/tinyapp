@@ -5,6 +5,10 @@
   <% include ./partials/_header %>
 </header>
 
+<nav>
+  <% include ./partials/_nav %>
+</nav>
+
 <body>
   <% for (url in urls) { %>
     <%= urls[url].shortURL %> - <%= urls[url].longURL %>

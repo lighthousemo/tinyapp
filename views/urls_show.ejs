@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<header>
-  <% include ./partials/_header %>
-</header>
+  <header>
+    <% include ./partials/_header %>
+  </header>
 
-<body>
-  <form method='POST' action='/urls/<%= shortURL %>?_method=PUT'>
-    <input type='text' value='<%= longURL %>' name='url'></input>
-    <button type="submit">Update</button>
-  </form>
-</body>
+  <nav>
+    <% include ./partials/_nav %>
+  </nav>
+
+  <body>
+    <form method='POST' action='/urls/<%= shortURL %>?_method=PUT'>
+      <input type='text' value='<%= longURL %>' name='url'></input>
+      <button type="submit">Update</button>
+    </form>
+  </body>
 </html>
