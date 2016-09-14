@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(methodOverride('_method'));
-app.use(bodyParser.urlencoded());
+// Extended no longer has default value so must be set
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 // Initiate server
