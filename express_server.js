@@ -38,8 +38,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   app.post('/urls', (req, res) => {
     let longURL = req.body.longURL;
     tinyapp.insertURL(db, longURL, (err, result) => {
-      let templateVars = { title: 'Your tinyURLs' };
-      res.redirect('/urls', templateVars);
+      res.redirect('/urls');
     });
   });
 
