@@ -13,7 +13,7 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded());
 app.set('view engine', 'ejs');
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
+  console.log(`Server listening on port ${PORT}!`);
 });
 
 function generateRandomString() {
