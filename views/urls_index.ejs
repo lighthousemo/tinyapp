@@ -12,8 +12,9 @@
   <% for (url in urls) { %>
     <div class='tinyURL'>
       <%= urls[url].shortURL %> - <%= urls[url].longURL %>
-      <a href='/urls/<%= urls[url].shortURL %>' class='btn'>Edit</a>
+      <br/>
       <form method='POST' action='/urls/<%= urls[url].shortURL %>?_method=DELETE'>
+        <a href='/urls/<%= urls[url].shortURL %>' class='btn'>Edit</a>
         <button class='btn' type='submit'>Delete</button>
       </form>
     </div>
