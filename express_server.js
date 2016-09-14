@@ -80,11 +80,11 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     throw err;
   }
 
-  app.get("/urls/new", (req, res) => {
-    res.render("urls_new");
+  app.get('/urls/new', (req, res) => {
+    res.render('urls_new');
   });
 
-  app.post("/urls", (req, res) => {
+  app.post('/urls', (req, res) => {
     let longURL = req.body.longURL;
     insertURL(db, longURL, (err, result) => {
       res.redirect('/urls');
