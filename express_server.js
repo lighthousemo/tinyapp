@@ -2,7 +2,6 @@
 
 const express = require('express');
 const app = express();
-
 app.set('view engine', 'ejs');
 
 const methodOverride = require('method-override');
@@ -15,71 +14,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const MongoClient = require('mongodb').MongoClient;
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/url_shortener';
 
+const tinyapp = require('./tinyapp');
+
 // Set default port as 8080
 const PORT = process.env.PORT || 8080;
 // Initiate server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);
 });
-
-function generateRandomString() {
-  return Math.random().toString(36).substr(2,6);
-}
-
-function insertURL(db, longURL, cb) {
-  let newURL = {
-    shortURL: generateRandomString(),
-    longURL: longURL
-  }
-  db.collection('urls').insertOne(newURL, (err, result) => {
-    if (err) {
-      return cb(err);
-    }
-    return cb(null, result);
-  });
-}
-
-function updateURL(db, shortURL, longURL, cb) {
-  db.collection('urls').updateOne(
-    { 'shortURL': shortURL },
-    {
-      $set: { 'longURL': longURL }
-    }, (err, result) => {
-// Extended no longer has default value so must be set
-app.use(bodyParser.urlencoded({ extended: true }));    if (err) {
-      return cb(err);
-    }
-    return cb(null, result);
-  });
-}
-
-function deleteURL(db, shortURL, cb) {
-  db.collection('urls').remove({ 'shortURL': shortURL }, (err, result) => {
-    if (err) {
-      return cb(err);
-    }
-    return cb(null, result);
-  });
-}
-
-function getLongURL(db, shortURL, cb) {
-  let query = { 'shortURL': shortURL };
-  db.collection('urls').findOne(query, (err, result) => {
-    if (err) {
-      return cb(err);
-    }
-    return cb(null, result.longURL);
-  });
-}
-
-function getURLs(db, cb) {
-  db.collection('urls').find().toArray((err, result) => {
-    if (err) {
-      return cb(err);
-    }
-    return cb(null, result);
-  });
-}
 
 MongoClient.connect(MONGODB_URI, (err, db) => {
   if (err) {
@@ -93,7 +35,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   app.post('/urls', (req, res) => {
     let longURL = req.body.longURL;
-    insertURL(db, longURL, (err, result) => {
+    tinyapp.insertURL(db, longURL, (err, result) => {
       res.redirect('/urls');
     });
   });
@@ -103,7 +45,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   });
 
   app.get('/urls', (req, res) => {
-    getURLs(db, (err, URLs) => {
+    tinyapp.getURLs(db, (err, URLs) => {
       let templateVars = { urls: URLs };
       res.render('urls_index', templateVars);
     });
@@ -111,7 +53,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   app.get('/urls/:id', (req, res) => {
     let shortURL = req.params.id;
-    getLongURL(db, shortURL, (err, longURL) => {
+    tinyapp.getLongURL(db, shortURL, (err, longURL) => {
       let templateVars = {
         shortURL: shortURL,
         longURL: longURL
@@ -123,21 +65,21 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   app.put('/urls/:id', (req, res) => {
     let shortURL = req.params.id;
     let longURL = req.body.url;
-    updateURL(db, shortURL, longURL, (err, result) => {
+    tinyapp.updateURL(db, shortURL, longURL, (err, result) => {
       res.redirect('/urls');
     });
   });
 
   app.delete('/urls/:id', (req, res) => {
     let shortURL = req.params.id;
-    deleteURL(db, shortURL, (err,result) => {
+    tinyapp.deleteURL(db, shortURL, (err,result) => {
       res.redirect('/urls');
     });
   });
 
   app.get("/u/:shortURL", (req, res) => {
     let shortURL = req.params.shortURL;
-    getLongURL(db, shortURL, (err, longURL) => {
+    tinyapp.getLongURL(db, shortURL, (err, longURL) => {
       if (longURL === undefined) {
         let templateVars = { shortURL: shortURL };
         res.status(404).render('not_found', templateVars);
