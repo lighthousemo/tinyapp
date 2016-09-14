@@ -10,11 +10,13 @@
 
 <body>
   <% for (url in urls) { %>
-    <%= urls[url].shortURL %> - <%= urls[url].longURL %>
-    <a href='/urls/<%= urls[url].shortURL %>'>Edit</a>
-    <form method='POST' action='/urls/<%= urls[url].shortURL %>?_method=DELETE'>
-      <button type="submit">Delete</button>
-    </form>
+    <div class='tinyURL'>
+      <%= urls[url].shortURL %> - <%= urls[url].longURL %>
+      <a href='/urls/<%= urls[url].shortURL %>' class='btn'>Edit</a>
+      <form method='POST' action='/urls/<%= urls[url].shortURL %>?_method=DELETE'>
+        <button class='btn' type='submit'>Delete</button>
+      </form>
+    </div>
   <% }; %>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 const express = require('express');
 const app = express();
+app.use("/css", express.static(__dirname + '/css'));
 app.set('view engine', 'ejs');
 
 const methodOverride = require('method-override');
