@@ -86,8 +86,11 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   app.get("/u/:shortURL", (req, res) => {
     let shortURL = req.params.shortURL;
     tinyapp.getLongURL(db, shortURL, (err, longURL) => {
-      if (longURL === undefined) {
-        let templateVars = { shortURL: shortURL };
+      if (err === 'not_found') {
+        let templateVars = {
+          title: 'Not Found!',
+          shortURL: shortURL
+        };
         res.status(404).render('not_found', templateVars);
       } else {
         if(longURL.indexOf('http://') === -1) {

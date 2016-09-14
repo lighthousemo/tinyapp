@@ -45,7 +45,11 @@ exports.getLongURL = function(db, shortURL, cb) {
     if (err) {
       return cb(err);
     }
-    return cb(null, result.longURL);
+    if (result === null) {
+      return cb('not_found', undefined);
+    } else {
+      return cb(null, result.longURL);
+    }
   });
 }
 
