@@ -36,7 +36,8 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   app.post('/urls', (req, res) => {
     let longURL = req.body.longURL;
     tinyapp.insertURL(db, longURL, (err, result) => {
-      res.redirect('/urls');
+      let templateVars = { title: 'Your tinyURLs'};
+      res.redirect('/urls', templateVars);
     });
   });
 
@@ -46,7 +47,10 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   app.get('/urls', (req, res) => {
     tinyapp.getURLs(db, (err, URLs) => {
-      let templateVars = { urls: URLs };
+      let templateVars = {
+        title: 'Your tinyURLs',
+        urls: URLs
+      };
       res.render('urls_index', templateVars);
     });
   });
@@ -55,6 +59,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     let shortURL = req.params.id;
     tinyapp.getLongURL(db, shortURL, (err, longURL) => {
       let templateVars = {
+        title: `Details for ${shortURL}`,
         shortURL: shortURL,
         longURL: longURL
       };
