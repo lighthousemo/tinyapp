@@ -90,6 +90,8 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   });
 
   app.get('/urls.json', (req, res) => {
-    res.json(urlDatabase);
+    tinyapp.getURLs(db, (err, URLs) => {
+      res.json(URLs);
+    });
   });
 });
