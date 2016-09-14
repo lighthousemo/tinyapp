@@ -14,8 +14,8 @@
       <%= urls[url].shortURL %> - <%= urls[url].longURL %>
       <br/>
       <form method='POST' action='/urls/<%= urls[url].shortURL %>?_method=DELETE'>
-        <a href='/urls/<%= urls[url].shortURL %>' class='btn'>Edit</a>
-        <button class='btn' type='submit'>Delete</button>
+        <a href='/urls/<%= urls[url].shortURL %>' class='btn'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <button class='btn' type='submit'><i class="fa fa-trash" aria-hidden="true"></i></button>
       </form>
     </div>
   <% }; %>

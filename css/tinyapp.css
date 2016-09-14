@@ -34,6 +34,7 @@ nav {
 }
 
 .btn {
+  display: inline-block;
   border: none;
   color: #a9b8c1;
   font-size: 20px;
