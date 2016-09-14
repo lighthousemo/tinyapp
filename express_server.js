@@ -6,12 +6,15 @@ const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/url_shortener';
 
-const PORT = process.env.PORT || 8080; // set default as 8080
+// Set default port as 8080
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded());
 app.set('view engine', 'ejs');
+
+// Initiate server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);
 });
