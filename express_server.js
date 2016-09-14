@@ -91,6 +91,9 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
         let templateVars = { shortURL: shortURL };
         res.status(404).render('not_found', templateVars);
       } else {
+        if(longURL.indexOf('http://') === -1) {
+          longURL = 'http://' + longURL;
+        }
         res.status(301).redirect(longURL);
       }
     });
