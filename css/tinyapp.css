@@ -9,11 +9,7 @@ nav {
   padding-bottom: 25px;
 }
 
-.center {
-  margin: 0 auto;
-}
-
-.btn {
+.nav-btn {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -27,8 +23,27 @@ nav {
   margin-top: 25px;
 }
 
-.btn:hover {
+.nav-btn:hover {
   background: #A7DBD8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.btn {
+  border: none;
+  color: #a9b8c1;
+  font-size: 20px;
+  background: #ffffff;
+  margin-top: 25px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  color: #69D2E7;
   text-decoration: none;
   cursor: pointer;
 }
