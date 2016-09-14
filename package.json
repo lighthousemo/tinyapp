@@ -17,6 +17,7 @@
     "connect": "^3.5.0",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
-    "method-override": "^2.3.6"
+    "method-override": "^2.3.6",
+    "mongodb": "^2.2.9"
   }
 }

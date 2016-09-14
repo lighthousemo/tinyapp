@@ -6,7 +6,7 @@
 </header>
 
 <body>
-  <form method='POST' action='/urls/<%= id %>?_method=PUT'>
+  <form method='POST' action='/urls/<%= shortURL %>?_method=PUT'>
     <input type='text' value='<%= longURL %>' name='url'></input>
     <button type="submit">Update</button>
   </form>

@@ -7,9 +7,9 @@
 
 <body>
   <% for (url in urls) { %>
-    <%= url %> - <%= urls[url] %>
-    <a href='/urls/<%= url %>'>Edit</a>
-    <form method='POST' action='/urls/<%= url %>?_method=DELETE'>
+    <%= urls[url].shortURL %> - <%= urls[url].longURL %>
+    <a href='/urls/<%= urls[url].shortURL %>'>Edit</a>
+    <form method='POST' action='/urls/<%= urls[url].shortURL %>?_method=DELETE'>
       <button type="submit">Delete</button>
     </form>
   <% }; %>
