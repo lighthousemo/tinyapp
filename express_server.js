@@ -1,20 +1,22 @@
 'use strict';
 
 const express = require('express');
+const app = express();
+
+app.set('view engine', 'ejs');
+
 const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 const bodyParser = require("body-parser");
+// Extended no longer has default value so must be set
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const MongoClient = require('mongodb').MongoClient;
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/url_shortener';
 
 // Set default port as 8080
 const PORT = process.env.PORT || 8080;
-const app = express();
-
-app.use(methodOverride('_method'));
-// Extended no longer has default value so must be set
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs');
-
 // Initiate server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);
@@ -43,7 +45,8 @@ function updateURL(db, shortURL, longURL, cb) {
     {
       $set: { 'longURL': longURL }
     }, (err, result) => {
-    if (err) {
+// Extended no longer has default value so must be set
+app.use(bodyParser.urlencoded({ extended: true }));    if (err) {
       return cb(err);
     }
     return cb(null, result);
@@ -93,6 +96,10 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     insertURL(db, longURL, (err, result) => {
       res.redirect('/urls');
     });
+  });
+
+  app.get('/', (req, res) => {
+    res.redirect('/urls');
   });
 
   app.get('/urls', (req, res) => {
